@@ -1,0 +1,42 @@
+;; =========================================================================
+;; 1. FUNCIONES AUXILIARES Y DE PROCESAMIENTO
+;; =========================================================================
+
+;; Cuenta la cantidad total de llamadas en la lista
+(defun contar-llamadas (lista)
+  (if (null lista)
+      0
+      (+ 1 (contar-llamadas (cdr lista)))))
+
+;; Suma el total de minutos de todas las llamadas
+(defun sumar-minutos (lista)
+  (if (null lista)
+      0
+      (+ (cadar lista) (sumar-minutos (cdr lista)))))
+
+;; Busca quién llamó más. 
+;; Compara el primero con el "máximo" del resto de la lista.
+(defun quien-llamo-mas (lista)
+  (if (null (cdr lista))
+      (car lista) ; Si queda uno solo, ese es el máximo actual
+      (let ((max-resto (quien-llamo-mas (cdr lista))))
+        (if (> (cadar lista) (cadr max-resto))
+            (car lista)
+            max-resto))))
+
+;; =========================================================================
+;; 2. FUNCIÓN PRINCIPAL (REPORTAR RESULTADOS)
+;; =========================================================================
+(defun reportar-llamadas (lista)
+  (if (null lista)
+      (format t "No hay registros de llamadas.~%")
+      (let ((total-llamadas (contar-llamadas lista))
+            (total-minutos (sumar-minutos lista))
+            (ganador (quien-llamo-mas lista)))
+        
+        (format t "=== REPORTE DE LLAMADAS ===~%")
+        (format t "Cantidad total de llamadas: ~A~%" total-llamadas)
+        (format t "Total de minutos consumidos: ~A min.~%" total-minutos)
+        (format t "La persona que hizo la llamada más larga fue ~A con ~A min.~%" 
+                (car ganador) (cadr ganador))
+        (format t "===========================~%"))))

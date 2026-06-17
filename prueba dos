@@ -1,0 +1,146 @@
+  i i i i i i i       ooooo    o        ooooooo   ooooo   ooooo
+  I I I I I I I      8     8   8           8     8     o  8    8
+  I  \ `+' /  I      8         8           8     8        8    8
+   \  `-+-'  /       8         8           8      ooooo   8oooo
+    `-__|__-'        8         8           8           8  8
+        |            8     o   8           8     o     8  8
+  ------+------       ooooo    8oooooo  ooo8ooo   ooooo   8
+
+Welcome to GNU CLISP 2.49 (2010-07-07) <http://clisp.cons.org/>
+
+Copyright (c) Bruno Haible, Michael Stoll 1992, 1993
+Copyright (c) Bruno Haible, Marcus Daniels 1994-1997
+Copyright (c) Bruno Haible, Pierpaolo Bernardi, Sam Steingold 1998
+Copyright (c) Bruno Haible, Sam Steingold 1999-2000
+Copyright (c) Sam Steingold, Bruno Haible 2001-2010
+
+Type :h and hit Enter for context help.
+
+[1]> (defun masaCorporal (lista)
+       (/ (car (last lista)) (expt (Cadr lista) 2) (* (car (cadr lista)) 0.1)))
+
+MASACORPORAL
+[2]> (masaCorporal '(01234 (18 1.87) "natacion" 30.00))
+
+*** - EXPT: (18 1.87) is not a number
+Es posible continuar en los siguientes puntos:
+USE-VALUE      :R1      Input a value to be used instead.
+ABORT          :R2      Abort main loop
+Break 1 [3]> (defun masaCorporal (lista)
+       (/ (car (last lista)) (expt (cadr (Cadr lista) 2) (* (car (cadr lista)) 0.1)))
+)
+
+MASACORPORAL
+Break 1 [3]> (masaCorporal '(01234 (18 1.87) "natacion" 30.00))
+
+*** - EVAL: se han entregado demasiados argumentos a CADR: (CADR (CADR LISTA) 2)
+Es posible continuar en los siguientes puntos:
+ABORT          :R1      Abort debug loop
+ABORT          :R2      Abort main loop
+Break 2 [4]>  (defun masaCorporal (lista)
+       (/ (car (last lista)) (expt (cadr (Cadr lista)) 2) (* (car (cadr lista)) 0.1)))
+
+MASACORPORAL
+Break 2 [4]> (masaCorporal '(01234 (18 1.87) "natacion" 30.00))
+
+4.766126
+Break 2 [4]> (defun masaCorporal (lista)
+      (+  (/ (car (last lista)) (expt (cadr (Cadr lista)) 2)) (* (car (cadr lista)) 0.1)))
+
+
+MASACORPORAL
+Break 2 [4]> (masaCorporal '(01234 (18 1.87) "natacion" 30.00))
+
+10.379027
+Break 2 [4]> (masaCorporal '(01234 (43 1.87) "natacion" 30.00))
+
+12.879027
+Break 2 [4]> (defun alumno (lista)
+                (and
+                     (>= 18 (car (cadr lista)))
+                     (>= 1.75 (cadr (Cadr lista)))))
+
+ALUMNO
+Break 2 [4]> (alumno '(01234 (43 1.87) "natacion" 30.00))
+
+NIL
+Break 2 [4]>  (defun alumno (lista)
+                (and
+                     (>= (car (cadr lista)) 18 )
+                     (>=  (cadr (Cadr lista))  1.75)))
+
+ALUMNO
+Break 2 [4]> (alumno '(01234 (43 1.87) "natacion" 30.00))
+
+T
+Break 2 [4]> (defun aumento-cuota (lista)
+               (mapcar (lambda (elem) 
+                         (+ (last elem) 0.21)) lista ))
+
+AUMENTO-CUOTA
+Break 2 [4]> (aumento-cuota '((01234 (43 1.87) "natacion" 30.00) (01235 (39 1.77) "tenis" 50.00)(01239 (83 1.65) "futbol" 20.00)(01242 (18 1.76) "natacion" 30.00)))
+
+*** - +: (30.0) is not a number
+Es posible continuar en los siguientes puntos:
+USE-VALUE      :R1      Input a value to be used instead.
+ABORT          :R2      Abort debug loop
+ABORT          :R3      Abort debug loop
+ABORT          :R4      Abort main loop
+Break 3 [5]>  (defun aumento-cuota (lista)
+               (mapcar (lambda (elem) 
+                         (+ (Car (last elem) 0.21)) lista ))
+
+
+)
+
+AUMENTO-CUOTA
+Break 3 [5]>  (defun aumento-cuota (lista)
+               (mapcar (lambda (elem) 
+                         (+ (car (last elem)) 0.21) lista )))
+
+
+AUMENTO-CUOTA
+Break 3 [5]> (aumento-cuota '((01234 (43 1.87) "natacion" 30.00) (01235 (39 1.77) "tenis" 50.00)(01239 (83 1.65) "futbol" 20.00)(01242 (18 1.76) "natacion" 30.00)))
+
+*** - EVAL: no se han entregado suficientes argumentos a MAPCAR:
+       (MAPCAR
+        #'(LAMBDA (ELEM) (DECLARE (SYSTEM::SOURCE ((ELEM) (+ (CAR (LAST ELEM)) 0.21) LISTA))) (+ (CAR (LAST ELEM)) 0.21)
+           LISTA))
+
+Es posible continuar en los siguientes puntos:
+ABORT          :R1      Abort debug loop
+ABORT          :R2      Abort debug loop
+ABORT          :R3      Abort debug loop
+ABORT          :R4      Abort main loop
+Break 4 [6]>  (defun aumento-cuota (lista)
+               (mapcar (lambda (elem) 
+                         (+ (car (last elem)) 0.21))lista ))
+
+AUMENTO-CUOTA
+Break 4 [6]> (aumento-cuota '((01234 (43 1.87) "natacion" 30.00) (01235 (39 1.77) "tenis" 50.00)(01239 (83 1.65) "futbol" 20.00)(01242 (18 1.76) "natacion" 30.00)))
+
+(30.21 50.21 20.21 30.21)
+Break 4 [6]>  (defun aumento-cuota (lista)
+               (mapcar (lambda (elem) 
+                         (* (car (last elem)) 0.21))lista ))
+
+AUMENTO-CUOTA
+Break 4 [6]> (aumento-cuota '((01234 (43 1.87) "natacion" 30.00) (01235 (39 1.77) "tenis" 50.00)(01239 (83 1.65) "futbol" 20.00)(01242 (18 1.76) "natacion" 30.00)))
+
+(6.2999997 10.5 4.2 6.2999997)
+Break 4 [6]>  (defun aumento-cuota (lista)
+               (mapcar (lambda (elem) 
+                        (+  (car (last elem)) (* (car (last elem)) 0.21)) lista ))
+)
+
+AUMENTO-CUOTA
+Break 4 [6]>  (defun aumento-cuota (lista)
+               (mapcar (lambda (elem) 
+                        (+  (car (last elem)) (* (car (last elem)) 0.21))) lista ))
+
+AUMENTO-CUOTA
+Break 4 [6]> (aumento-cuota '((01234 (43 1.87) "natacion" 30.00) (01235 (39 1.77) "tenis" 50.00)(01239 (83 1.65) "futbol" 20.00)(01242 (18 1.76) "natacion" 30.00)))
+
+(36.3 60.5 24.2 36.3)
+Break 4 [6]> (defun solo-tenis (lista)
+               (cond)
